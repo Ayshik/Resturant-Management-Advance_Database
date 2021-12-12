@@ -182,7 +182,10 @@ public boolean flag;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       //  sign_up s=new sign_up();
       //  s.setVisible(true);
-        this.setVisible(false);// TODO add your handling code here:
+        //this.setVisible(false);// TODO add your handling code here:
+        signupform sform=new signupform();
+        this.setVisible(false);
+         sform.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
