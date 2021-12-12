@@ -259,11 +259,15 @@ public void check()
                 
                 String sql2 = "select * from EMPLOYEE where USERNAME = '"+jTextField1.getText().trim()+"' "
                         + "and PASSWORD = '"+jPasswordField1.getText().trim()+"'";
+                String sql3 = "select * from CUSTOMER where USERNAME = '"+jTextField1.getText().trim()+"' "
+                        + "and PASSWORD = '"+jPasswordField1.getText().trim()+"'";
                 PreparedStatement ps = conn.prepareStatement(sql1);
                 PreparedStatement ps1 = conn.prepareStatement(sql2);
+                 PreparedStatement ps2 = conn.prepareStatement(sql3);
                 System.out.println("statement created");
                 ResultSet rs = ps.executeQuery();
                 ResultSet rs1 = ps1.executeQuery();
+                 ResultSet rs2 = ps2.executeQuery();
                 
                 
                if(rs1.next())
@@ -279,6 +283,13 @@ public void check()
                     this.setVisible(false);
                     admin.setVisible(true);
                     JOptionPane.showMessageDialog(null,"Login Successful as admin");
+                }
+                else if(rs2.next())
+                {
+                    User_Dashboard ud = new User_Dashboard();
+                    this.setVisible(false);
+                    ud.setVisible(true);
+                    JOptionPane.showMessageDialog(null,"Login Successful as customer");
                 }
                 else
                 {
