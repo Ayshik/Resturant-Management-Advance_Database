@@ -275,21 +275,21 @@ public void check()
                         Employee_Dashboard emp = new Employee_Dashboard();
                         this.setVisible(false);
                         emp.setVisible(true);
-                        JOptionPane.showMessageDialog(null,"Login Successful as employee");
+                        
                 }
                else if(rs.next())
                 {
                     Admin_Deshboard admin = new Admin_Deshboard();
                     this.setVisible(false);
                     admin.setVisible(true);
-                    JOptionPane.showMessageDialog(null,"Login Successful as admin");
+                    
                 }
                 else if(rs2.next())
                 {
                     User_Dashboard ud = new User_Dashboard();
                     this.setVisible(false);
                     ud.setVisible(true);
-                    JOptionPane.showMessageDialog(null,"Login Successful as customer");
+                  
                 }
                 else
                 {
