@@ -5,19 +5,30 @@
  */
 package resturant.management;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mahmu
  */
 public class User_Profile extends javax.swing.JFrame {
-
+public boolean flag;
+    /**
     /**
      * Creates new form User_Profile
      */
     public User_Profile() {
         initComponents();
     }
-
+public User_Profile(String uid) {
+        initComponents();
+        jLabel9.setText(uid);
+         this.DataShow();
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,19 +39,19 @@ public class User_Profile extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        id = new javax.swing.JTextField();
+        uname = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
-        mobno = new javax.swing.JTextField();
+        uemail = new javax.swing.JTextField();
+        umob = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        pass = new javax.swing.JTextField();
+        upass = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        add = new javax.swing.JTextField();
+        uadd = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -52,21 +63,21 @@ public class User_Profile extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("ID:");
+        jLabel5.setText("Name:");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("email:");
+        jLabel1.setText("Email:");
 
-        mobno.addActionListener(new java.awt.event.ActionListener() {
+        umob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mobnoActionPerformed(evt);
+                umobActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Mob No:");
+        jLabel2.setText("Phone:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,7 +99,7 @@ public class User_Profile extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("address:");
+        jLabel8.setText("Address:");
 
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,17 +130,15 @@ public class User_Profile extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(120, 120, 120)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addGap(26, 26, 26)
-                                                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(jLabel9)
-                                                .addGap(215, 215, 215))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(128, 128, 128)
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(uname, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel9)
+                                        .addGap(215, 215, 215))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,10 +158,10 @@ public class User_Profile extends javax.swing.JFrame {
                                             .addComponent(jLabel2))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(mobno, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(umob, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(uemail, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(upass, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(uadd, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addComponent(jLabel7)))
                 .addContainerGap(45, Short.MAX_VALUE))
@@ -165,15 +174,15 @@ public class User_Profile extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uname, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uemail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mobno, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(umob, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,10 +191,10 @@ public class User_Profile extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGap(32, 32, 32))
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(upass, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uadd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -214,27 +223,27 @@ public class User_Profile extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mobnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mobnoActionPerformed
+    private void umobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_umobActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_mobnoActionPerformed
+    }//GEN-LAST:event_umobActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // UpdateIntoDB();
+         UpdateIntoDB();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        email.setText(null);
-        mobno.setText(null);
-        pass.setText(null);
-        id.setText(null);
+        uemail.setText(null);
+        umob.setText(null);
+        upass.setText(null);
+        uname.setText(null);
         //subj.setText(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //String msg1= jLabel10.getText();
-        // new Student_login(msg1).setVisible(true);
-        this.setVisible(false);       // TODO add your handling code here:
+       String msg1= jLabel9.getText();
+new User_Dashboard(msg1).setVisible(true);
+this.setVisible(false);    // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -273,9 +282,6 @@ public class User_Profile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField add;
-    private javax.swing.JTextField email;
-    private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
@@ -289,7 +295,116 @@ public class User_Profile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField mobno;
-    private javax.swing.JTextField pass;
+    private javax.swing.JTextField uadd;
+    private javax.swing.JTextField uemail;
+    private javax.swing.JTextField umob;
+    private javax.swing.JTextField uname;
+    private javax.swing.JTextField upass;
     // End of variables declaration//GEN-END:variables
+   
+    
+    
+
+public void DataShow()
+	
+{
+        String query = "SELECT * FROM CUSTOMER WHERE USERNAME='"+jLabel9.getText()+"'"; 
+       System.out.println(query);
+        Connection con=null;//connection er jonno
+        java.sql.Statement st = null;//query execution korbe
+		ResultSet rs = null;// ResultSet rs1 = null;// DB theke result collect korbe
+		System.out.println(query);
+        try
+		{
+                    
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+			System.out.println("connection done");
+			st = con.createStatement();
+			System.out.println("statement created");
+			rs = st.executeQuery(query);
+                       // rs = st.executeQuery(query1);
+			System.out.println("results received");
+               
+			
+			while(rs.next())
+			{
+              
+                     		
+                String username = rs.getString("USERNAME");
+               
+				System.out.println(username);
+				
+                    flag = false;
+                    if(username.equals(jLabel9.getText()))
+					{
+						System.out.println("intered");
+                                                  uname.setText(rs.getString("NAME"));
+                                                  uemail.setText(rs.getString("EMAIL"));
+                                                  upass.setText(rs.getString("PASSWORD")); 
+                                                  uadd.setText(rs.getString("ADDRESS"));
+                                                  umob.setText(rs.getString("PHONE"));
+                                                 
+					}					
+                        }
+                      
+			
+		}
+        catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(this, ex);
+                        
+        }
+       
+        
+        
+        
+    } 
+
+
+
+
+
+
+
+
+
+public void UpdateIntoDB()
+        
+	{
+		String query1 = "UPDATE CUSTOMER SET NAME='" + uname.getText()+ "',ADDRESS='" + uadd.getText()+ "',PHONE='" + umob.getText() + "',EMAIL='"+ uemail.getText()+"',password='" +  upass.getText() + "' WHERE USERNAME='"+ jLabel9.getText()+"'";
+		System.out.println(query1);
+                Connection conn=null;//connection er jonno
+                java.sql.Statement stm = null;//query execution korbe
+		ResultSet rst = null;// ResultSet rs1 = null;// DB theke result collect korbe
+		System.out.println(query1);     
+        try
+		{  
+                    
+                  if(this.uadd.getText().trim().isEmpty() || this.umob.getText().trim().isEmpty() ||
+                     this.uemail.getText().trim().isEmpty() ||this.uname.getText().trim().isEmpty() ||
+                     this.upass.getText().trim().isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(null,"Fill all the fields");
+                    }
+                    else{
+                        
+                        conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+			System.out.println("connection done");
+			stm = conn.createStatement();
+			System.out.println("statement created");
+			rst = stm.executeQuery(query1);
+                       // rs = st.executeQuery(query1);
+			System.out.println("update ok");
+                        stm.close();
+			conn.close();
+                        JOptionPane.showMessageDialog(this,"CONGATULATIONS YOUR ACCOUNT HAS BEEN Updated!!");
+                    }	
+		}
+        
+        catch(Exception ex)
+		{
+			System.out.println("Exception : " +ex.getMessage());
+        }
+    }
+
 }

@@ -233,8 +233,8 @@ public Admin_Deshboard(String uid) {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
          LoginForm log=new LoginForm();
-this.setVisible(false);
-log.setVisible(true);
+         this.setVisible(false);
+         log.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -316,35 +316,35 @@ log.setVisible(true);
     }
 
 
-  
-  
-  public void show_Data_Table()
-    {
-          try
-            {
-                Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
-                String sql1 = "select * from EMPLOYEE";                
-                PreparedStatement ps = conn.prepareStatement(sql1);           
-                ResultSet rs = ps.executeQuery();                
-                while(rs.next())
-                {                   
-                    String Username = rs.getString("USERNAME");
-                    String Name = rs.getString("NAME");
-                    String Email = rs.getString("EMAIL");
-                    String Mobile = rs.getString("MOBILE"); 
-                    String Address= rs.getString("ADDRESS");
-                    String Gender = rs.getString("GENDER");                   
-                    String Password = rs.getString("PASSWORD");               
-                    String tbData[] = {Username,Name,Email,Mobile,Address,Gender,Password};
-                    DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();                    
-                    tblmodel.addRow(tbData);
-                }
-                
-            }
-            catch(Exception ex)
-            {
-                JOptionPane.showMessageDialog(this, ex);
-            }
-    }
+//  
+//  
+//  public void show_Data_Table()
+//    {
+//          try
+//            {
+//                Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+//                String sql1 = "select * from EMPLOYEE";                
+//                PreparedStatement ps = conn.prepareStatement(sql1);           
+//                ResultSet rs = ps.executeQuery();                
+//                while(rs.next())
+//                {                   
+//                    String Username = rs.getString("USERNAME");
+//                    String Name = rs.getString("NAME");
+//                    String Email = rs.getString("EMAIL");
+//                    String Mobile = rs.getString("MOBILE"); 
+//                    String Address= rs.getString("ADDRESS");
+//                    String Gender = rs.getString("GENDER");                   
+//                    String Password = rs.getString("PASSWORD");               
+//                    String tbData[] = {Username,Name,Email,Mobile,Address,Gender,Password};
+//                    DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();                    
+//                    tblmodel.addRow(tbData);
+//                }
+//                
+//            }
+//            catch(Exception ex)
+//            {
+//                JOptionPane.showMessageDialog(this, ex);
+//            }
+//    }
 
 }
