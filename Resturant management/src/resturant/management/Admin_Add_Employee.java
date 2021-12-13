@@ -290,9 +290,9 @@ public Admin_Add_Employee(String uid) {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //String msg1= jLabel10.getText();
-        // new Student_login(msg1).setVisible(true);
-        this.setVisible(false);       // TODO add your handling code here:
+        String msg1= jLabel12.getText();
+new Admin_Deshboard(msg1).setVisible(true);
+this.setVisible(false); 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
