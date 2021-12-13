@@ -282,7 +282,7 @@ public void check()
                 }
                else if(rs.next())
                 {
-                    Admin_Deshboard admin = new Admin_Deshboard();
+                    Admin_Deshboard admin = new Admin_Deshboard(jTextField1.getText());
                     this.setVisible(false);
                     admin.setVisible(true);
                     

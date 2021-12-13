@@ -391,10 +391,13 @@ public class signupform extends javax.swing.JFrame {
                     if(this.jTextField1.getText().trim().isEmpty() || this.jTextField2.getText().trim().isEmpty() 
                             || this.jTextField3.getText().trim().isEmpty() || this.jTextField5.getText().trim().isEmpty() 
                             || this.jTextField6.getText().trim().isEmpty() || this.jComboBox1.getSelectedItem().toString().isEmpty()
-                            || this.dateChooserCombo3.getText().isEmpty() || this.jTextField3.getText().trim().isEmpty()){
+                            || this.dateChooserCombo3.getText().isEmpty() || this.jTextField3.getText().trim().isEmpty()
+                            )
+                    {
                         JOptionPane.showMessageDialog(null,"Fill all the fields");
+                    }
                   
-                }
+                        else{
 			 Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
               
                 PreparedStatement ps = conn.prepareStatement(query);
@@ -403,9 +406,9 @@ public class signupform extends javax.swing.JFrame {
                 ps.executeQuery();
                
                         JOptionPane.showMessageDialog(this,"CONGATULATIONS YOUR ACCOUNT HAS BEEN CREATED!!"); 
-					
-		}
-        
+                                }		
+                    
+                }
         catch(Exception ex)
 		{
 			System.out.println("Exception : " +ex.getMessage());
