@@ -23,7 +23,7 @@ public class Admin_Deshboard extends javax.swing.JFrame {
     /**
      * Creates new form Admin_Deshboard
      */
-    public Admin_Deshboard() {
+public Admin_Deshboard() {
         initComponents();
         this.listTable();
     }
@@ -223,13 +223,13 @@ public Admin_Deshboard(String uid) {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
- Admin_Profile admin = new Admin_Profile(jLabel2.getText());
+      Admin_Profile admin = new Admin_Profile(jLabel2.getText());
                     this.setVisible(false);
                     admin.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-Admin_Add_Employee admin = new Admin_Add_Employee(jLabel2.getText());
+    Admin_Add_Employee admin = new Admin_Add_Employee(jLabel2.getText());
                     this.setVisible(false);
                     admin.setVisible(true);         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -287,27 +287,20 @@ Admin_Add_Employee admin = new Admin_Add_Employee(jLabel2.getText());
 
   public void listTable()
     {
-                        try
+          try
             {
                 Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
-                String sql1 = "select * from ATTENDANCE";
-                
-                PreparedStatement ps = conn.prepareStatement(sql1);
-           
-                ResultSet rs = ps.executeQuery();
-                
+                String sql1 = "select * from ATTENDANCE";                
+                PreparedStatement ps = conn.prepareStatement(sql1);           
+                ResultSet rs = ps.executeQuery();                
                 while(rs.next())
-                {
-                   
+                {                   
                     String username = rs.getString("USERNAME");
                     String name = rs.getString("NAME");
                     String login = rs.getString("LOGEDIN");
-                     String logout = rs.getString("LOGEDOUT");
-                   
-                    
+                    String logout = rs.getString("LOGEDOUT");            
                     String tbData[] = {username,name,login,logout};
-                    DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();
-                    
+                    DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();                    
                     tblmodel.addRow(tbData);
                 }
                 
