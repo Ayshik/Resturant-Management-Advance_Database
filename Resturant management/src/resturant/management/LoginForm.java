@@ -94,7 +94,7 @@ public boolean flag;
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Login Form");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\mahmu\\Desktop\\T.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resturant/management/T.png"))); // NOI18N
         jLabel6.setText("jLabel6");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
