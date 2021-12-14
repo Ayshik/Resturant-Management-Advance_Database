@@ -276,7 +276,7 @@ public void check()
                         Employee_Dashboard emp = new Employee_Dashboard(jTextField1.getText());
                         this.setVisible(false);
                         emp.setVisible(true);
-                        
+                        UpdateIntoattendance();
                 }
                else if(rs.next())
                 {
@@ -309,4 +309,41 @@ public void check()
 
 
 }
+public void UpdateIntoattendance()
+       
+	{
+            
+    java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+
+		String query1 = "UPDATE ATTENDANCE SET LOGEDIN='" +date+ "' WHERE USERNAME='"+jTextField1.getText().trim()+"'";
+		System.out.println(query1);
+                Connection conn=null;//connection er jonno
+                java.sql.Statement stm = null;//query execution korbe
+		ResultSet rst = null;// ResultSet rs1 = null;// DB theke result collect korbe
+		System.out.println(query1);     
+        try
+		{  
+                    
+                  
+                   
+                        
+                        conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+			System.out.println("connection done");
+			stm = conn.createStatement();
+			System.out.println("statement created");
+			rst = stm.executeQuery(query1);
+                       // rs = st.executeQuery(query1);
+			System.out.println("update ok");
+                        stm.close();
+			conn.close();
+                        
+                    	
+		}
+        
+        catch(Exception ex)
+		{
+			System.out.println("Exception : " +ex.getMessage());
+        }
+    }
+
 }

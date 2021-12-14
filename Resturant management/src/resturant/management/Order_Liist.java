@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -70,7 +72,6 @@ public class Order_Liist extends javax.swing.JFrame {
         });
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -154,11 +155,11 @@ this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-listOFORDES();        // TODO add your handling code here:
+search();         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
@@ -240,6 +241,12 @@ listOFORDES();        // TODO add your handling code here:
 
 
 
-
+public void search()
+    {
+        DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tblModel);
+        jTable1.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(jTextField1.getText().trim()));
+    }
 
 }
