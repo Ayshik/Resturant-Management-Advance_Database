@@ -95,6 +95,11 @@ public Admin_Deshboard(String uid) {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Order List");
         jButton5.setBorderPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(255, 153, 51));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -236,6 +241,12 @@ public Admin_Deshboard(String uid) {
          this.setVisible(false);
          log.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       Order_Liist emp_show = new Order_Liist(jLabel2.getText());
+                    this.setVisible(false);
+                    emp_show.setVisible(true);    // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

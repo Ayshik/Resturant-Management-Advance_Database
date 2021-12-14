@@ -180,6 +180,7 @@ public class Payment extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       String msg1= jLabel7.getText();
+      
 new User_Dashboard(msg1).setVisible(true);
 this.setVisible(false);      // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
