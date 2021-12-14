@@ -178,13 +178,14 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //String msg1= jLabel4.getText();
-        // new Student_login(msg1).setVisible(true);
-        this.setVisible(false);       // TODO add your handling code here:
+      String msg1= jLabel7.getText();
+new User_Dashboard(msg1).setVisible(true);
+this.setVisible(false);      // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        // TODO add your handling code here:
+       Payment();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -323,4 +324,29 @@ public void Totalp()
 
 
 
+
+
+ public void Payment()
+        
+	{
+		String query = "INSERT INTO PAYMENT VALUES ('"+jTextField1.getText()+"','"+jTextField2.getText()+"','"+jComboBox1.getSelectedItem().toString()+"','"+jLabel4.getText()+"','"+jLabel11.getText()+"','"+jLabel7.getText()+"')";
+		System.out.println(query);
+            try
+		{
+                    if(this.jTextField1.getText().trim().isEmpty() || this.jTextField2.getText().trim().isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Fill the fields");
+                    }             
+                    else{
+			 Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+                         PreparedStatement ps = conn.prepareStatement(query);
+                         System.out.println("statement created");
+                         ps.executeQuery();
+                        JOptionPane.showMessageDialog(this,"PAYMENT SUCCESSFULL!!"); 
+                        }                   
+                }
+            catch(Exception ex)
+		{
+			System.out.println("Exception : " +ex.getMessage());
+                }
+        }
 }
