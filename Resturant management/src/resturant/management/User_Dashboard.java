@@ -5,6 +5,13 @@
  */
 package resturant.management;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mahmu
@@ -17,10 +24,15 @@ public class User_Dashboard extends javax.swing.JFrame {
     public User_Dashboard() {
         initComponents();
     }
-public  User_Dashboard(String uid) {
+public User_Dashboard(String uid) {
         initComponents();
         jLabel2.setText(uid);
-        //this.listTable();
+        jLabel8.setVisible(false);
+          jLabel4.setVisible(false);
+            jLabel10.setVisible(false);
+            jLabel12.setVisible(false);
+            this.DataSL();
+        this.listMenu();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +59,11 @@ public  User_Dashboard(String uid) {
         jSpinner1 = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -88,15 +105,17 @@ public  User_Dashboard(String uid) {
         jTable1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Name", "Gender", "Phone", "Address"
+                "Menu Id", "Name", "Item Details", "Price"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton5.setBackground(new java.awt.Color(0, 153, 153));
@@ -104,10 +123,16 @@ public  User_Dashboard(String uid) {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Order List");
         jButton5.setBorderPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(255, 153, 51));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("uname");
 
         jLabel3.setBackground(new java.awt.Color(255, 153, 51));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -130,11 +155,19 @@ public  User_Dashboard(String uid) {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Menu:");
+        jLabel4.setText("N");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Quantity:");
+
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 50, 1));
+        jSpinner1.setName(""); // NOI18N
+        jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner1StateChanged(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -142,7 +175,27 @@ public  User_Dashboard(String uid) {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("tk200");
+        jLabel7.setText("00");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("200");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Menu:");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("D");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("SL");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,12 +212,25 @@ public  User_Dashboard(String uid) {
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                                .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel12))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(59, 59, 59)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(356, 356, 356))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -172,8 +238,6 @@ public  User_Dashboard(String uid) {
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
@@ -186,6 +250,11 @@ public  User_Dashboard(String uid) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(261, 261, 261)
+                    .addComponent(jLabel9)
+                    .addContainerGap(735, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,31 +262,54 @@ public  User_Dashboard(String uid) {
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(39, 39, 39)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(14, 14, 14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(68, 68, 68)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(324, Short.MAX_VALUE)))
         );
 
         jMenu1.setText("File");
@@ -274,14 +366,43 @@ public  User_Dashboard(String uid) {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-     LoginForm log=new LoginForm();
+     UpdateIntoSL();
+        LoginForm log=new LoginForm();
      this.setVisible(false);
      log.setVisible(true);
+    
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        insertOrder();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
+int one=Integer.parseInt(jSpinner1.getValue().toString()); 
+int two=Integer.parseInt(jLabel8.getText()); 
+ String ans=String.valueOf(one*two);
+ jLabel12.setText(jSpinner1.getValue().toString());
+            jLabel7.setText(ans);// TODO add your handling code here:
+    }//GEN-LAST:event_jSpinner1StateChanged
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+ DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
+        int selectedRowIndex=jTable1.getSelectedRow();
+        jTextField1.setText(model.getValueAt(selectedRowIndex,0).toString());  
+         jLabel8.setText(model.getValueAt(selectedRowIndex,3).toString()); 
+jLabel7.setText(model.getValueAt(selectedRowIndex,3).toString());
+jLabel4.setText(model.getValueAt(selectedRowIndex,1).toString());
+jLabel10.setText(model.getValueAt(selectedRowIndex,2).toString());
+jSpinner1.setValue(1);// TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+Payment log=new Payment(jLabel2.getText(),jLabel11.getText());
+     this.setVisible(false);
+     log.setVisible(true);       // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,12 +445,17 @@ public  User_Dashboard(String uid) {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -340,4 +466,176 @@ public  User_Dashboard(String uid) {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+
+ public void listMenu()
+    {
+          try
+            {
+                Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+                String sql1 = "select * from MENU WHERE STATUS='active'";                
+                PreparedStatement ps = conn.prepareStatement(sql1);           
+                ResultSet rs = ps.executeQuery();                
+                while(rs.next())
+                {                   
+                   String id = String.valueOf(rs.getInt("MENUID"));
+                    String name = rs.getString("NAME");
+                    String price = String.valueOf(rs.getInt("PRICE"));
+                    String itemd = rs.getString("DETAILS");            
+                    String tbData[] = {id,name,itemd,price};
+                    DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();                    
+                    tblmodel.addRow(tbData);
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                JOptionPane.showMessageDialog(this, ex);
+            }
+    }
+
+
+
+
+
+public void DataSL()
+	
+{
+        String query = "SELECT * FROM ORDERSL WHERE STATUS='ACTIVE'"; 
+       System.out.println(query);
+        Connection con=null;//connection er jonno
+        java.sql.Statement st = null;//query execution korbe
+		ResultSet rs = null;// ResultSet rs1 = null;// DB theke result collect korbe
+		System.out.println(query);
+        try
+		{
+                    
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+			System.out.println("connection done");
+			st = con.createStatement();
+			System.out.println("statement created");
+			rs = st.executeQuery(query);
+                       // rs = st.executeQuery(query1);
+			System.out.println("results received");
+               
+			
+			
+              
+                     		
+                
+				while(rs.next())
+			{
+                  
+                   
+						System.out.println("intered");
+                                                  jLabel11.setText(rs.getString("SL"));
+                                                 
+                                                 
+                        }				
+                        
+                      
+			
+		}
+        catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(this, ex);
+                        
+        }
+       
+    } 
+
+
+
+
+
+
+
+public void UpdateIntoSL()
+       
+	{
+            int old=Integer.parseInt(jLabel11.getText()); 
+       String newsl=String.valueOf(old+1);
+		String query1 = "UPDATE ORDERSL SET SL='" +newsl+ "' WHERE STATUS='ACTIVE'";
+		System.out.println(query1);
+                Connection conn=null;//connection er jonno
+                java.sql.Statement stm = null;//query execution korbe
+		ResultSet rst = null;// ResultSet rs1 = null;// DB theke result collect korbe
+		System.out.println(query1);     
+        try
+		{  
+                    
+                  
+                   
+                        
+                        conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+			System.out.println("connection done");
+			stm = conn.createStatement();
+			System.out.println("statement created");
+			rst = stm.executeQuery(query1);
+                       // rs = st.executeQuery(query1);
+			System.out.println("update ok");
+                        stm.close();
+			conn.close();
+                        
+                    	
+		}
+        
+        catch(Exception ex)
+		{
+			System.out.println("Exception : " +ex.getMessage());
+        }
+    }
+
+
+
+
+
+public void insertOrder()
+        
+	{
+           
+		String query = "INSERT INTO ORDERLIST (ORDERID,USERNAME,INAME,IDETAILS,PRICE,QUANTITY,TOTALPRICE,ITEMID) VALUES ('"+jLabel11.getText()+"','"+jLabel2.getText()+"','"+jLabel4.getText()+"','"+jLabel10.getText()+"','"+jLabel8.getText()+"','"+jLabel12.getText()+"','"+jLabel7.getText()+"','"+ jTextField1.getText()+"')";
+                System.out.println(query);
+              
+             
+                
+        try
+		{
+                    if(this. jTextField1.getText().trim().isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(null,"Please select a item!!!!");
+                    }
+                  
+                        else{
+			 Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","XE","123");
+              
+                PreparedStatement ps = conn.prepareStatement(query);
+               
+                System.out.println("statement created");
+                ps.executeQuery();
+                  JOptionPane.showMessageDialog(null,"ORDER PLACED!!!!");
+               
+                        
+                                }		
+                    
+                }
+        catch(Exception ex)
+		{
+			System.out.println("Exception : " +ex.getMessage());
+        }
+    
+               
+
+
+
+
+
+
+
+        }
+
+
+
+
+
 }
