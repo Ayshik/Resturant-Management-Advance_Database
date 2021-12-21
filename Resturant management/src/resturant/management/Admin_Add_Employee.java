@@ -286,6 +286,8 @@ public Admin_Add_Employee(String uid) {
         mobno.setText(null);
         pass.setText(null);
         id.setText(null);
+         id1.setText(null);
+          add.setText(null);
         //subj.setText(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed

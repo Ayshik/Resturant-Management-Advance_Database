@@ -24,11 +24,14 @@ public class Employee_Show_User extends javax.swing.JFrame {
      */
     public Employee_Show_User() {
         initComponents();
+         
     }
 public  Employee_Show_User(String uid) {
         initComponents();
         jLabel1.setText(uid);
         this.show_Data_Table();
+        
+       
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -177,15 +180,6 @@ public  Employee_Show_User(String uid) {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // email.setText(null);
-        // mobno.setText(null);
-        //pass.setText(null);
-        //id.setText(null);
-        //subj.setText(null);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // String msg1= jLabel10.getText();
         // new Student_login(msg1).setVisible(true);
@@ -207,6 +201,16 @@ this.setVisible(false);
         int selectedRowIndex=jTable1.getSelectedRow();
         Uname.setText(model.getValueAt(selectedRowIndex,0).toString());  // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // email.setText(null);
+        // mobno.setText(null);
+        //pass.setText(null);
+        //id.setText(null);
+        //subj.setText(null);
+        // TODO add your handling code here:
+        show_Data_Table();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,7 +310,11 @@ void delete(){
             Statement st=null;           
             System.out.println("driver loaded");
             System.out.println("connection done");            
-            System.out.println("statement created");               
+            System.out.println("statement created");   
+                      
+             String msg1= jLabel1.getText();
+new Employee_Show_User(msg1).setVisible(true);
+this.setVisible(false);
             JOptionPane.showMessageDialog(null,"Record deleted ");
                 
             }

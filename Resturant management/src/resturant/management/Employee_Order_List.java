@@ -58,7 +58,7 @@ public class Employee_Order_List extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ITEM ID", "NAME", "DETAILS", "PRICE", "QUANTITY", "TOTAL PRICE"
+                "ITEM ID", "NAME", "DETAILS", "PRICE", "QUANTITY", "TOTAL PRICE", "ORDERID"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -222,8 +222,9 @@ public class Employee_Order_List extends javax.swing.JFrame {
                     String itemd = rs.getString("IDETAILS"); 
                      String quantity = rs.getString("QUANTITY"); 
                       String totalp = rs.getString("TOTALPRICE"); 
+                      String orderid = rs.getString("ORDERID");
                     
-                    String tbData[] = {id,name,itemd,price,quantity,totalp};
+                    String tbData[] = {id,name,itemd,price,quantity,totalp,orderid};
                     DefaultTableModel tblmodel = (DefaultTableModel)jTable1.getModel();                    
                     tblmodel.addRow(tbData);
                 }
