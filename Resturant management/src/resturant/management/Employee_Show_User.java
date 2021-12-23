@@ -311,7 +311,7 @@ void delete(){
             System.out.println("driver loaded");
             System.out.println("connection done");            
             System.out.println("statement created");   
-                      
+                      //
              String msg1= jLabel1.getText();
 new Employee_Show_User(msg1).setVisible(true);
 this.setVisible(false);
